@@ -25,7 +25,7 @@ class SensorDataManager(object):
         self.actuatorAdaptor = TempActuatorAdaptor.TempActuatorAdaptor()
  
     
-    def handleSensorData(self,curTemp):
+    def handleSensorData(self, curTemp):
         '''
         this method  handles all the sensor data and updates the actuator settings
         '''
@@ -34,17 +34,17 @@ class SensorDataManager(object):
         #checks if my current temperature is greater than nominal temperature
         if(curTemp > self.nominalTemp):
             # set the Actuator data according to current temperature
-            self.actuator.setCommand(ActuatorData.COMMAND_ON)
+            self.actuator.setCommand(ActuatorData.CMD_ON)
             self.actuator.setStateData('Decrease')
-            self.actuator.setValue(self.curTemp - self.nominalTemp)
+            self.actuator.setValue(curTemp - self.nominalTemp)
             self.actuatorAdaptor.updateActuator(self.actuator)
 #             self.connector.publishMessage('Excessive Temperature Alert', self.actuator)
             
         #checks if my current temperature is lesser than nominal temperature
         elif(curTemp < self.nominalTemp):
             # set the Actuator data according to current temperature
-            self.actuator.setCommand(ActuatorData.COMMAND_OFF)
+            self.actuator.setCommand(ActuatorData.CMD_OFF)
             self.actuator.setStateData('Increase')
-            self.actuator.setValue(self.curTemp - self.nominalTemp)
+            self.actuator.setValue(curTemp - self.nominalTemp)
             self.actuatorAdaptor.updateActuator(self.actuator)
 #             self.connector.publishMessage('Excessive Temperature Alert', self.actuator)

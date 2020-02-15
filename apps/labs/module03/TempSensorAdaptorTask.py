@@ -75,8 +75,8 @@ class TempSensorAdaptorTask(threading.Thread):
         threading.Thread.run(self)
         while True:
             if(self.enableEmulator):
-                self.curTemp = random.uniform(float(self.lowValue),float(self.highValue))
-                #self.curTemp = self.SenseHat.get_temperature()  #get temperature from SenseHat
+                #self.curTemp = random.uniform(float(self.lowValue),float(self.highValue))
+                self.curTemp = self.SenseHat.get_temperature()  #get temperature from SenseHat
                 self.sensorData.addValue(self.curTemp)
                 print('__________________________________________________')
                 print(str(self.sensorData.getSensorData()))

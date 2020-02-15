@@ -11,9 +11,9 @@ import os
 from datetime import datetime
 
 # Constants
-COMMAND_OFF = 0
-COMMAND_ON = 1
-COMMAND_RESET = 2
+CMD_OFF = 0
+CMD_ON = 1
+CMD_RESET = 2
 
 
 class ActuatorData(object):
@@ -26,7 +26,7 @@ class ActuatorData(object):
    
     timeStamp = None
     name = 'Temperature State'
-    command = 0
+    command = CMD_OFF
     stateData = None
     val = 0.0
 
