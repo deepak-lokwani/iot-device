@@ -1,5 +1,7 @@
 import unittest
-
+from labs.module03 import SensorDataManager 
+from labs.module03 import TempSensorAdaptorTask
+from labs.common import SensorData
 
 """
 Test class for all requisite Module03 functionality.
@@ -21,20 +23,36 @@ class Module03Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
-		pass
-
+		self.tempAdaptor	 = TempSensorAdaptorTask.TempSensorAdaptorTask(2)
+		self.sensDataMan = SensorDataManager.SensorDataManager()
+		self.currentValue = self.tempAdaptor.sensorData.getValue()
+		self.s = SensorData.SensorData().getValue()
 	"""
 	Use this to tear down any allocated resources after your tests are complete. This
 	is where you may want to release connections, zero out any long-term data, etc.
 	"""
 	def tearDown(self):
-		pass
+		self.tempAdaptor = None
+		self.currentValue = None
+		self.sensDataMan = None
+		
+
 
 	"""
-	Place your comments describing the test here.
+	Unit Test method for TempAdaptorTask class
 	"""
-	def testSomething(self):
+	def testTempSensorAdaptorTask(self):
+		
+		self.assertTrue(isinstance(self.currentValue, int), "CurrentValue in Sensor Data Value is not Float")  #Checking if the value is not float	
 		pass
+	
+	
+	"""
+	Unit Test for SensorDataManager class
+	"""
+	def testSensorDataManager(self):
+		self.assertFalse(self.sensDataMan.handleSensorData(self.s),"SesnorDataManager Failed")
+	
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

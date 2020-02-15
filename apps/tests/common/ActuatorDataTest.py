@@ -1,5 +1,5 @@
 import unittest
-
+from labs.common import ActuatorData
 
 """
 Test class for all requisite ActuatorData functionality.
@@ -21,19 +21,23 @@ class ActuatorDataTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
-		pass
+		self.act = ActuatorData.ActuatorData()
 
 	"""
 	Use this to tear down any allocated resources after your tests are complete. This
 	is where you may want to release connections, zero out any long-term data, etc.
 	"""
 	def tearDown(self):
+		self.act = None
 		pass
 	
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
+	def testActuatorData(self):
+		self.assertTrue(isinstance(self.act.getValue(),float), 'The Current Value is not float')
+		self.assertTrue(isinstance(self.act.getCommand(), int), 'The command is not Integer')
+		self.assertTrue(isinstance(self.act.getName(), str), 'The name is not String')
 		pass
 
 if __name__ == "__main__":
