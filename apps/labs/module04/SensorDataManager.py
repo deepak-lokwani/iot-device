@@ -10,7 +10,7 @@ This class  manages and process all the sensor data that is received as per the 
 
 from labs.common import ActuatorData
 from labs.common import ConfigUtil
-from labs.module03 import TempActuatorAdaptor
+from labs.module04 import MultiActuatorAdaptor
 from labs.module02 import SMTPClientConnector
 
 class SensorDataManager(object):
@@ -22,7 +22,7 @@ class SensorDataManager(object):
     def __init__(self):
         self.config = ConfigUtil.ConfigUtil()
         self.config.loadConfig()
-        self.actuatorAdaptor = TempActuatorAdaptor.TempActuatorAdaptor()
+        self.actuatorAdaptor = MultiActuatorAdaptor.TempActuatorAdaptor()
  
     
     def handleSensorData(self, curTemp):

@@ -8,7 +8,7 @@ This class contains all the keys to read the props file
 class ConfigConst(object):
     
     SECTION_SEPARATOR           ='.'
-    DEFAULT_CONFIG_FILE_NAME    =  r"C:\Users\deepa\git\workspace\iot-device\config\ConnectedDevicesConfig.props"
+    DEFAULT_CONFIG_FILE_NAME    =  r'/home/pi/workspace/iot-device/config/ConnectedDevicesConfig.props'
     
     CLOUD               = 'cloud'
     MQTT                = 'mqtt'

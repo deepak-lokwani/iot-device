@@ -13,7 +13,7 @@ from labs.common import SensorData
 from labs.module02 import SMTPClientConnector
 from labs.common import ConfigUtil
 from labs.common import ActuatorData
-from labs.module03 import TempActuatorAdaptor, SensorDataManager
+from labs.module04 import MultiActuatorAdaptor, SensorDataManager
 from time import sleep
 from sense_hat import SenseHat
 import random
@@ -57,7 +57,7 @@ class TempSensorAdaptorTask(threading.Thread):
         self.connector =  SMTPClientConnector.SMTPClientConnector()
               
         self.actuator = ActuatorData.ActuatorData()
-        self.actuatorAdaptor = TempActuatorAdaptor.TempActuatorAdaptor()
+        self.actuatorAdaptor = MultiActuatorAdaptor.TempActuatorAdaptor()
         
       
     
@@ -83,11 +83,13 @@ class TempSensorAdaptorTask(threading.Thread):
                 self.sensorData.addValue(self.curTemp)
                 print('__________________________________________________')
                 print(str(self.sensorData.getSensorData()))
-                if(abs(self.curTemp - self.sensorData.getAvgValue())>= self.alertDiff):
+                if(abs(self.curTemp - self.sensorData.getAvgValue())>=self.alertDiff):
                     logging.info('/n Excessive Temperature with a difference > ' + str(self.alertDiff) + '/nTriggering Alert')
-                    #print('\n current temperature exceeds average by ' + str(self.alertDiff) + ' Triggering alert message')
+                    print('Excessive Temperature with a difference > ' + str(self.alertDiff) + '/nTriggering Alert')
+                    
                     self.connector.publishMessage('Temperature Alert message', self.sensorData.getSensorData())
                     logging.info('/nEmail Sent')
+                    print('Email Sent')
                 
                 if(self.prevTempFlag == False):
                     self.prevTemp = self.curTemp
@@ -95,14 +97,9 @@ class TempSensorAdaptorTask(threading.Thread):
                     
                 if (self.prevTempFlag ==True):
                     if(self.prevTemp != self.curTemp): 
-<<<<<<< HEAD
-                        self.sensorDataMgr.handleSensorData(self, self.curTemp)
-#                 sleep(self.timeInterval)
-=======
                         sensorDataMgr.handleSensorData(self.sensorData.getValue())
                 #sleep(self.timeInterval)
->>>>>>> branch 'master' of https://lokwani_d@bitbucket.org/lokwani_d/iot-device.git
-                sleep(3)
+                sleep(10)
                     
             
             
