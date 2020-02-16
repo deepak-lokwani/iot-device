@@ -95,13 +95,12 @@ class TempSensorAdaptorTask(threading.Thread):
                     
                 if (self.prevTempFlag ==True):
                     if(self.prevTemp != self.curTemp): 
-<<<<<<< HEAD
-                        self.sensorDataMgr.handleSensorData(self, self.curTemp)
+
 #                 sleep(self.timeInterval)
-=======
+
                         sensorDataMgr.handleSensorData(self.sensorData.getValue())
                 #sleep(self.timeInterval)
->>>>>>> branch 'master' of https://lokwani_d@bitbucket.org/lokwani_d/iot-device.git
+
                 sleep(3)
                     
             
