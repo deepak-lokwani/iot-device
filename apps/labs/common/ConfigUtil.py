@@ -3,7 +3,8 @@ Created on 30-Jan-2020
 
 @author: deepak
 NUID: 001316769
-This class loads the configuration file for the SMTP Client 
+This class loads the configuration file for the SMTP Client
+
 '''
 import configparser
 from labs.common import ConfigConst
@@ -61,7 +62,7 @@ class ConfigUtil(object):
             return True
         else:
             return False
-    
+    #function checks for sections
     def hasSection(self, sectionname):
         #checks if the Section is assigned or not, created for the Test case
         if(self.configData.has_section(sectionname)):
