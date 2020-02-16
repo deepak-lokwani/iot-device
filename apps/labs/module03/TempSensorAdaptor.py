@@ -14,7 +14,7 @@ sys.path.insert(0,'/home/pi/workspace/iot-device/connected-devices-python/apps')
 
 
 # instance of temperature Emulator created with threshold value
-alert_diff = 0.5
+alert_diff = 0.05
 simulator = TempSensorAdaptorTask.TempSensorAdaptorTask(alert_diff)
 # enabled the emulator
 simulator.setEmulator(True)
