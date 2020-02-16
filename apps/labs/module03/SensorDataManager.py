@@ -34,7 +34,7 @@ class SensorDataManager(object):
         #checks if my current temperature is greater than nominal temperature
         if(curTemp > self.nominalTemp):
             # set the Actuator data according to current temperature
-            self.actuator.setCommand(ActuatorData.COMMAND_ON)
+            self.actuator.setCommand(ActuatorData.CMD_ON)
             self.actuator.setStateData('Decrease')
             self.actuator.setValue(curTemp - self.nominalTemp)
             self.actuatorAdaptor.updateActuator(self.actuator)
@@ -43,7 +43,7 @@ class SensorDataManager(object):
         #checks if my current temperature is lesser than nominal temperature
         elif(curTemp < self.nominalTemp):
             # set the Actuator data according to current temperature
-            self.actuator.setCommand(ActuatorData.COMMAND_OFF)
+            self.actuator.setCommand(ActuatorData.CMD_OFF)
             self.actuator.setStateData('Increase')
             self.actuator.setValue(curTemp - self.nominalTemp)
             self.actuatorAdaptor.updateActuator(self.actuator)

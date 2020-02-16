@@ -21,6 +21,10 @@ import logging
 
 sensorDataMgr = SensorDataManager.SensorDataManager()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> assignment4
 class TempSensorAdaptorTask(threading.Thread):
     
     #create an instance variable for configutil
@@ -58,7 +62,11 @@ class TempSensorAdaptorTask(threading.Thread):
               
         self.actuator = ActuatorData.ActuatorData()
         self.actuatorAdaptor = TempActuatorAdaptor.TempActuatorAdaptor()
+<<<<<<< HEAD
         
+=======
+        self.SenseHat = SenseHat()
+>>>>>>> assignment4
       
     
     def setEmulator(self,boolean):
@@ -80,6 +88,10 @@ class TempSensorAdaptorTask(threading.Thread):
             if(self.enableEmulator):
                 #self.curTemp = random.uniform(float(self.lowValue),float(self.highValue))
                 self.curTemp = self.SenseHat.get_temperature()  #get temperature from SenseHat
+<<<<<<< HEAD
+=======
+                self.SenseHat.get
+>>>>>>> assignment4
                 self.sensorData.addValue(self.curTemp)
                 print('__________________________________________________')
                 print(str(self.sensorData.getSensorData()))
@@ -95,7 +107,11 @@ class TempSensorAdaptorTask(threading.Thread):
                     
                 if (self.prevTempFlag ==True):
                     if(self.prevTemp != self.curTemp): 
+<<<<<<< HEAD
 
+=======
+                        sensorDataMgr.handleSensorData(self.sensorData.getValue())
+>>>>>>> assignment4
 #                 sleep(self.timeInterval)
 
                         sensorDataMgr.handleSensorData(self.sensorData.getValue())
