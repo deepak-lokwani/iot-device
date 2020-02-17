@@ -1,60 +1,72 @@
 '''
 Created on 15-Feb-2020
 
-@author: deepak
+@author: deepak_lokwani
 '''
 
-import smbus 
+'''
+this class is responsible for fetching the Humidity data from the SenseHat Sensor directly through the I2C protocol
+'''
+import smbus
 import threading
 from time import sleep
 import logging
 from labs.common import ConfigUtil
 from labs.common import ConfigConst
+from labs.common import SensorData
+from labs.module04 import SensorDataManager
 
 i2cBus = smbus.SMBus(1) # Use I2C bus No.1 on Raspberry Pi 3+
 
 enableControl = 0x2D
 enableMeasure = 0x08
 accelAddr = 0x1C # address for IMU (accelerometer)
-magAddr = 0x6A # address for IMU (magnetometer)
+magAddr = 0x6A 	 # address for IMU (magnetometer)
 pressAddr = 0x5C # address for pressure sensor
 humidAddr = 0x5F # address for humidity sensor
-begAddrL = 0x28
-begAddrM = 0x29
+begAddrL = 0x28	 # address for the Least byte of the relative Humidity
+begAddrM = 0x29  # address for the Most byte of the relative Humidity
 totBytes = 6
-DEFAULT_RATE_IN_SEC = 10
+DEFAULT_RATE_IN_SEC = 10	#Sleep Time
 
 class I2CSenseHatAdaptor(threading.Thread):
 	rateInSec = DEFAULT_RATE_IN_SEC
-	#config = ConfigUtil.ConfigUtil()
-	
+	sensorData = SensorData.SensorData()
+	sensorDataMgr = SensorDataManager.SensorDataManager()
+	humidityInPercent = 0
 
-
+	'''
+	Initializing my constructor and I2CBus consequently
+	'''
 	def __init__(self):
 		super(I2CSenseHatAdaptor, self).__init__()
-		#self.config = ConfigUtil.ConfigUtil(ConfigConst.DEFAULT_CONFIG_FILE_NAME)
-		#self.config.loadConfig()
-		#print('Configuration data...\n' + str(self.config))
 		self.initI2CBus()
 		self.enableEmulator = False
-		
+	'''
+	enabling the Emulator
+	'''	
 	def setEmulator(self, boolean):
 		self.enableEmulator = boolean
-		
+	
+	'''
+	Initializing my I2CBus
+	'''	
 	def initI2CBus(self):
 		logging.info("Initializing I2C bus and enabling I2C addresses...")
-		#i2cBus.write_byte_data(accelAddr, enableControl, enableMeasure)
-		#i2cBus.write_byte_data(magAddr, enableControl, enableMeasure)
-		#i2cBus.write_byte_data(pressAddr, enableControl, enableMeasure)
 		i2cBus.write_byte_data(humidAddr, enableControl, enableMeasure)
-		
+	
+	'''
+	method to convert my signed data to the unsigned data
+	'''	
 	def signedToUnsigned(self,lsb,msb):
 		val = (msb << 8) | lsb
 		if val & (1 << 15):
 			val = val - (1 << 16)
 		return val
-    
-	def displayHumidityData(self):
+   	'''
+    method to get my humidity data through the I2C bus
+    '''
+	def getHumidityDataI2C(self):
 		bits = 8
 		
 		coeffH0 = i2cBus.read_byte_data(humidAddr, 0x30)
@@ -75,13 +87,30 @@ class I2CSenseHatAdaptor(threading.Thread):
 		data = self.signedToUnsigned(data_1,data_2)
 		
 		relativeHumidity = (data - valH0T0)*(h1_rh - h0_rh)
-		humidityInPercent=(relativeHumidity/(valH1T0 - valH0T0)) + h0_rh
+		self.humidityInPercent=(relativeHumidity/(valH1T0 - valH0T0)) + h0_rh
 		datax = i2cBus.read_i2c_block_data(humidAddr, begAddrL, totBytes)
 		datay = i2cBus.read_i2c_block_data(humidAddr, begAddrM, totBytes)
-		print("Relative Humidity through I2C:  %.2f" %humidityInPercent)
 	
+	'''
+	method to update my humidity  data  through the SensorData instance
+	'''	
+	def updateHumidityValueI2C(self):
+		self.sensorData.addHumidityValueI2C(self.humidityInPercent)
+	
+	'''
+	method to display my humidity data
+	'''	
+	def displayHumidityDataI2C(self):	
+		print("Relative Humidity through I2C:  %.2f" %self.humidityInPercent)
+	
+	'''
+	Thread starts here
+	'''
 	def run(self):
 		while True:
 			if self.enableEmulator:
-				self.displayHumidityData()	
+				self.getHumidityDataI2C()
+				self.updateHumidityValueI2C()
+				self.displayHumidityDataI2C()
+				self.sensorDataMgr.handleSensorData(self.sensorData.getHumidityValueI2C(), 'humidI2C')	
 			sleep(self.rateInSec)

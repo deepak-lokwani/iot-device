@@ -34,6 +34,7 @@ class SenseHatLedActivator(threading.Thread):
         This method is used to set the display message and set up the Sensehat LED Matrix 
         '''
         super(SenseHatLedActivator, self).__init__()
+        
         if self.sleepTimeLed > 0:
             self.sleepTimeLed = self.sleepTimeLed
         if self.rotateDeg >= 0:
@@ -50,7 +51,8 @@ class SenseHatLedActivator(threading.Thread):
         while True:
             if self.enableLed:
                 if self.screenMsg != None:
-                    self.senseHatInst.show_message(str(self.screenMsg), scroll_speed = 0.05)
+                    
+                    self.senseHatInst.show_message(str(self.screenMsg))
                 else:
                     self.senseHatInst.show_letter(str('X'))
                 sleep(self.sleepTimeLed)

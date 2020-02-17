@@ -97,11 +97,6 @@ class TempSensorAdaptorTask(threading.Thread):
                     
                 if (self.prevTempFlag ==True):
                     if(self.prevTemp != self.curTemp): 
-                        sensorDataMgr.handleSensorData(self.sensorData.getValue())
+                        sensorDataMgr.handleSensorData(self.sensorData.getValue(), 'temp')
                 #sleep(self.timeInterval)
                 sleep(10)
-                    
-            
-            
-        
-        

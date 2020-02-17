@@ -50,7 +50,7 @@ class SenseHatLedActivator(threading.Thread):
         while True:
             if self.enableLed:
                 if self.screenMsg != None:
-                    self.senseHatInst.show_message(str(self.screenMsg))
+                    self.senseHatInst.show_message(str(self.screenMsg), scroll_speed = 0.05)
                 else:
                     self.senseHatInst.show_letter(str('X'))
                 sleep(self.sleepTimeLed)

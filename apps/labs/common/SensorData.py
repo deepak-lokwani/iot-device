@@ -22,13 +22,23 @@ from datetime import datetime
 class SensorData(object):
     
     timeStamp = None
-    name = 'Temperature Attributes Python'
+    name = 'Sensor Attributes Now'
     curValue = 0
     avgValue = 0
     minValue = 0
     maxValue = 0
     totValue = 0
     sampleCount = 0
+    
+    humidCountSH = 0
+    avgHumidValueSH = 0
+    curHumidValueSH = 0
+    totHumidValueSH = 0
+    
+    humidCountI2C = 0
+    avgHumidValueI2C = 0
+    curHumidValueI2C = 0
+    totHumidValueI2C = 0
     
     def __init__(self):
         
@@ -58,6 +68,37 @@ class SensorData(object):
         Getters and setters are created for f
         '''            
     
+    def addHumidityValueSH(self, newHumidValueSH):
+        self.humidCountSH += 1
+        self.timeStamp = str(datetime.now())
+        self.curHumidValueSH = newHumidValueSH
+        self.totHumidValueSH += newHumidValueSH
+        
+        if(self.totHumidValueSH !=0 and self.humidCountSH > 0):
+            self.avgHumidValueSH = self.totHumidValueSH / self.humidCountSH
+    
+    def getHumidityValueSH(self):
+        return self.curHumidValueSH
+            
+    def getAvgHumidValueSH(self):
+        return self.avgHumidValueSH
+        
+    
+    def addHumidityValueI2C(self, newHumidValueI2C):
+        self.humidCountI2C += 1
+        self.timeStamp = str(datetime.now())
+        self.curHumidValueI2C = newHumidValueI2C
+        self.totHumidValueI2C += newHumidValueI2C
+        
+        if(self.totHumidValueI2C != 0 and self.humidCountI2C > 0):
+            self.avgHumidValueI2c = self.totHumidValueI2C / self.humidCountI2C
+            
+    def getHumidityValueI2C(self):
+        return self.curHumidValueI2C
+            
+    def getAvgHumidValueI2C(self):
+        return self.avgHumidValueI2C
+        
     def getAvgValue(self):
         return self.avgValue
     
