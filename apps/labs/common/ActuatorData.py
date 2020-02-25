@@ -2,6 +2,7 @@
 Created on 08-Feb-2020
 
 @author: deepak
+NUID: 001316769
 '''
 
 '''
@@ -26,7 +27,7 @@ class ActuatorData(object):
    
     timeStamp = None
     name = 'Temperature State'
-    command = CMD_OFF
+    command = 0
     stateData = None
     val = 0.0
 
