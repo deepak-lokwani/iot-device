@@ -8,6 +8,7 @@ Created on 15-Feb-2020
 this class is responsible for fetching the Humidity data from the SenseHat Sensor directly through the I2C protocol
 '''
 import smbus
+
 import threading
 from time import sleep
 import logging

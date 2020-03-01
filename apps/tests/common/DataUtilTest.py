@@ -13,6 +13,10 @@ Instructions:
 
 Please note: While some example test cases may be provided, you must write your own for the class.
 """
+from labs.common.SensorData import SensorData
+from labs.common.DataUtil import DataUtil
+import json
+from labs.common.ActuatorData import ActuatorData
 class DataUtilTest(unittest.TestCase):
 
 	"""
@@ -21,6 +25,9 @@ class DataUtilTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.sensor_Data = SensorData() 
+		self.actuator_Data = ActuatorData()
+		self.dataUtil = DataUtil
 		pass
 
 	"""
@@ -28,13 +35,34 @@ class DataUtilTest(unittest.TestCase):
 	is where you may want to release connections, zero out any long-term data, etc.
 	"""
 	def tearDown(self):
+		self.sensor_Data = None
+		self.dataUtil = None
 		pass
 	
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
-		pass
+	def testToJsonFromSensorData(self):
+		self.sensorData = SensorData()
+		jsonData = json.dumps(self.sensorData.__dict__)
+		json_data = self.dataUtil.toJsonFromSensorData(self, self.sensor_Data) 
+		assert(json_data == jsonData)
+		
+
+	def testToJsonFromActuatorData(self):
+		self.actData = ActuatorData()
+		jsonData = json.dumps(self.actData.__dict__)
+		json_Data = self.dataUtil.toJsonFromActuatorData(self, self.actuator_Data)
+		assert(json_Data == jsonData)
+		
+	def testWriteSensorDataToFile(self):
+# 		js = json.dumps(self.sensor_Data)
+		y = self.dataUtil.writeSensorDataToFile(self, self.sensor_Data)
+		assert(y)
+		
+	def testWriteActuatorDataToFile(self):
+		y = self.dataUtil.writeActuatorDataToFile(self, self.actuator_Data)
+		assert(y)
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

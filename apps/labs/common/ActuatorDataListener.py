@@ -5,6 +5,10 @@ Created on 23-Feb-2020
 '''
 from labs.common.ActuatorData import ActuatorData
 
+'''
+this class is responsible for the writing the actuator data on the file
+'''
+
 class ActuatorDataListener(object):
     
     def __int__(self):

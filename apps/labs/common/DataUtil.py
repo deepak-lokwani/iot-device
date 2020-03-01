@@ -43,15 +43,11 @@ class DataUtil(object):
     Method to Convert SensorData object to Json String and write in a file
     '''
     def writeSensorDataToFile(self,sensorData):
-        jsonData = json.dumps(sensorData)
+        jsonData = json.dumps(sensorData.__dict__)
         
-        with open('jsonData_SensorData.txt','W') as outfile:
+        with open('jsonData_SensorData.txt','w') as outfile:
             json.dump(jsonData, outfile)
-            
-            if outfile.exists():
-                return True
-            else:
-                return False
+            return True
     
     '''
     Method to Convert ActuatorData object to Json String
@@ -79,12 +75,9 @@ class DataUtil(object):
     Method to Convert ActuatorData object to Json String and write it in a file
     '''
     def writeActuatorDataToFile(self,actuatorData):
-        jsonData = json.dumps(actuatorData)
+        jsonData = json.dumps(actuatorData.__dict__)
         
-        with open('jsonData_ActuatorData.txt','W') as outfile:
+        with open('jsonData_ActuatorData.txt','w') as outfile:
             json.dump(jsonData, outfile)
-            
-            if outfile.exists():
-                return True
-            else:
-                return False
+            return True
+           
