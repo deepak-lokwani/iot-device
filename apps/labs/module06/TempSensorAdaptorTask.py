@@ -11,7 +11,7 @@ import threading
 from labs.common import SensorData
 from labs.module02 import SMTPClientConnector
 # from labs.common import ConfigUtil
-from labs.common import ActuatorData
+#from labs.common import ActuatorData
 # from labs.module05 import MultiActuatorAdaptor, SensorDataManager
 from time import sleep
 from sense_hat import SenseHat
@@ -55,7 +55,7 @@ class TempSensorAdaptorTask(threading.Thread):
         self.sensorData = SensorData.SensorData()
 #         self.connector =  SMTPClientConnector.SMTPClientConnector()
         self.mqttClientConnector = mqttClientConnector()      
-        self.actuator = ActuatorData.ActuatorData()
+        #self.actuator = ActuatorData.ActuatorData()
 #         self.actuatorAdaptor = MultiActuatorAdaptor.TempActuatorAdaptor()
     
     def setEmulator(self, boolean):

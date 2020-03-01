@@ -1,4 +1,7 @@
 import unittest
+from labs.common import SensorData
+from labs.common import ActuatorData
+import json
 
 
 """
@@ -21,6 +24,7 @@ class Module05Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		
 		pass
 
 	"""
@@ -33,8 +37,18 @@ class Module05Test(unittest.TestCase):
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
-		pass
+	def testToJsonFromSensorData(self):
+		self.sensorData = SensorData.SensorData()
+		jsonData = json.dumps(self.sensorData.__dict__)
+		json_data = self.dataUtil.toJsonFromSensorData(self, self.sensor_Data) 
+		assert(json_data == jsonData)
+		
+
+	def testToJsonFromActuatorData(self):
+		self.actData = ActuatorData()
+		jsonData = json.dumps(self.actData.__dict__)
+		json_Data = self.dataUtil.toJsonFromActuatorData(self, self.actuator_Data)
+		assert(json_Data == jsonData)
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']
