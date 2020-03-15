@@ -5,7 +5,9 @@ Created on 14-Mar-2020
 
 NUID: 001316769
 '''
-
+'''
+this class is a script to initialize and run the CoAp client connector class  
+'''
 from labs.module07.CoapClientConnector import CoapClientConnector
 from labs.common.SensorData import SensorData
 from labs.common.DataUtil import DataUtil
