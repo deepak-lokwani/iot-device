@@ -1,7 +1,7 @@
 '''
 Created on 23-Mar-2020
 
-@author: deepa
+@author: deepak lokwani
 '''
 
 import time
@@ -11,6 +11,11 @@ from labs.common import SensorData
 from labs.common import DataUtil
 import ssl
 
+'''
+This class is responsible for establishing the connection with the gateway device
+and processing the necessary payload and the other overload data and process the
+MQTT Callback functions appropriately
+'''
 
 class MqttClientConnector(object):
     '''

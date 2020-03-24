@@ -1,4 +1,6 @@
 import unittest
+from labs.module08 import MqttClientConnector
+from time import sleep
 
 
 """
@@ -21,21 +23,30 @@ class Module08Test(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
-		pass
+		self.connector = MqttClientConnector.MqttClientConnector()
 
 	"""
 	Use this to tear down any allocated resources after your tests are complete. This
 	is where you may want to release connections, zero out any long-term data, etc.
 	"""
 	def tearDown(self):
-		pass
+		self.connector = None
 
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
-		pass
-
+	def testMqttSubscribe(self):
+		
+		i=10
+		while(i!=0):
+			self.connector.connect(None, None)
+			sleep(1)
+			self.connector.subscibetoTopic("Mqtt_Test")
+			sleep(15)
+			self.connector.unsubscibefromTopic("Mqtt_Test")
+			self.connector.disconnect()
+			i=i-1
+		
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']
 	unittest.main()

@@ -1,7 +1,15 @@
 '''
 Created on 23-Mar-2020
 
-@author: deepa
+@author: deepak lokwani
+
+'''
+
+'''
+This class establishes, subscribes, unsubscribes, and disconnects 
+the connection with the Gateway device infinitely while the program 
+is running in order to continuously receive the Actuation data values back.
+
 '''
 from labs.module08 import MqttClientConnector
 from time import sleep
@@ -18,11 +26,11 @@ while(True):
     #subscribing to a topic
     connector.subscibetoTopic("Mqtt_Test")
     
-#     #pause
+    #pause
     sleep(65)
-#     
+     
     #unsubscribe from topic
-    connector.unsubscibefromTopic("MqttTTest")
+    connector.unsubscibefromTopic("Mqtt_Test")
      
     #disconnecting from broker
     connector.disconnect()
