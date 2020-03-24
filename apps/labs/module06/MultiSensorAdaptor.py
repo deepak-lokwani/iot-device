@@ -6,9 +6,7 @@ Created on 29-Feb-2020
 '''
 this python script starts the Temperature Handling process here. This is the main/start process
 '''
-# 
-# from labs.module05 import HumiditySensorAdaptorTask
-# from labs.module05 import HI2CSensorAdaptorTask
+
 from labs.module06 import TempSensorAdaptorTask
 import sys
 from time import sleep
