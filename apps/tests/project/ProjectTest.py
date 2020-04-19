@@ -1,5 +1,11 @@
 import unittest
-
+from project import MultiActuatorAdaptorTask
+from project.commons import MqttClientConnector
+from project import SystemPerformanceAdaptor
+from project.protocols import UbidotsApiConnector
+from project.commons.SensorData import SensorData
+from labs.common.ActuatorData import ActuatorData 
+from labs.common.DataUtil import DataUtil
 
 """
 Test class for all requisite Project functionality.
@@ -21,6 +27,13 @@ class ProjectTest(unittest.TestCase):
 	instances of complex objects, initialize any requisite connections, etc.
 	"""
 	def setUp(self):
+		self.multi_act_apt = MultiActuatorAdaptorTask.MultiActuatorAdaptorTask()
+		self.mqtt = MqttClientConnector.MqttClientConnector()
+		self.ubi = UbidotsApiConnector
+		self.sensorData = SensorData()
+		self.actuatorData = ActuatorData()
+# 		self.actData = ActuatorData()
+		self.dataUtil = DataUtil
 		pass
 
 	"""
@@ -28,13 +41,39 @@ class ProjectTest(unittest.TestCase):
 	is where you may want to release connections, zero out any long-term data, etc.
 	"""
 	def tearDown(self):
+		self.multi_act_apt = None
+		self.mqtt = None
+		self.sp = None
+		self.ubi = None
+		self.sensorData = None
+		self.actuatorData = None
+		self.dataUtil = None
 		pass
 
 	"""
 	Place your comments describing the test here.
 	"""
-	def testSomething(self):
-		pass
+	def testMultiActuatorAdaptor(self):
+		self.returnBooleanVal = self.multi_act_apt.updateActuator('ActFromGD', "0")
+		assert(self.returnBooleanVal)
+		self.returnBooleanVal2 = self.multi_act_apt.updateActuator('ActFromGD',"1")
+		assert(self.returnBooleanVal2)
+		
+	def testMqttconnect(self):
+		assert(self.mqtt.connect(None, None))
+		
+	def testMqttsubscribetoTopic(self):
+		assert(self.mqtt.subscibetoTopic('ActFromGD'))
+		
+	def testMQttdisconnect(self):
+		assert(self.mqtt.disconnect())	
+		
+	def testUbidotsApiConnector(self):
+		cpuUtil = 50.0
+		memUtil = 75.0
+		assert(self.ubi.main(cpuUtil, memUtil))
+		
+		
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

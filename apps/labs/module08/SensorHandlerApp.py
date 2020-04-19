@@ -22,6 +22,7 @@ while(True):
     
     #Connecting to broker
     connector.connect(None, None)
+    connector.publishMessage("Mqtt_Test", "msg", 2)
     
     #subscribing to a topic
     connector.subscibetoTopic("Mqtt_Test")

@@ -64,10 +64,12 @@ class I2CSenseHatAdaptor(threading.Thread):
 		if val & (1 << 15):
 			val = val - (1 << 16)
 		return val
-   	'''
+
+	'''
     method to get my humidity data through the I2C bus
     '''
 	def getHumidityDataI2C(self):
+
 		bits = 8
 		
 		coeffH0 = i2cBus.read_byte_data(humidAddr, 0x30)

@@ -7,9 +7,10 @@ Created on 23-Mar-2020
 import time
 import paho.mqtt.client as mqttClient
 from labs.common import ConfigUtil
-from labs.common import SensorData
+# from labs.common import SensorData
 from labs.common import DataUtil
-import ssl
+# import ssl
+import logging
 
 '''
 This class is responsible for establishing the connection with the gateway device
@@ -40,7 +41,7 @@ class MqttClientConnector(object):
         '''
         self.mqttClient = mqttClient.Client("Python_Client")
         self.config = ConfigUtil.ConfigUtil()
-        self.sensoData = SensorData.SensorData()
+#         self.sensoData = SensorData.SensorData()
         self.datautil = DataUtil.DataUtil()
         self.config.loadConfig()
         self.brockerKeepAlive = 65
@@ -49,7 +50,10 @@ class MqttClientConnector(object):
         self.authToken = 'BBFF-yegKC0ObS7wjfGO8Bx2IU53hjRv9il'
         self.port = 1883
         self.brokerAddr = 'mqtt.eclipse.org'
+#         self.brokerAddr = 'test.mosquitto.org'
         self.password = ''
+#         self.mqttClient.on_connect = self.onConnect
+#         self.mqttClient.on_disconnect = self.onMessage
     
     def connect(self, connectionCallback = None , msgCallback = None):
         '''
@@ -65,20 +69,23 @@ class MqttClientConnector(object):
             self.mqclient.on_disconnect = msgCallback
         else :
             self.mqttClient.on_disconnect = self.onMessage
+            
         #callback when message arrives
         self.mqttClient.on_message = self.onMessage    
-        print("Connecting to broker",self.brokerAddr)
+        logging.info("Connecting to broker Address :  "  + self.brokerAddr)
+        
+        #Connecting to the broker
         self.mqttClient.connect(self.brokerAddr, self.port, self.brockerKeepAlive)
         self.mqttClient.loop_start() 
         while not self.connected_flag:
-            print("Attempting to connect to MQTT broker :",self.brokerAddr)
+            logging.info("Attempting to connect to MQTT broker :  " + self.brokerAddr)
             time.sleep(1)
         
     def disconnect(self):
         '''
         function to disconnect from broker
         '''
-        print("Disconneting the MQTT  broker connection ")
+        logging.info("Disconneting the MQTT  broker connection ")
         self.mqttClient.disconnect()
     
         
@@ -89,17 +96,27 @@ class MqttClientConnector(object):
         '''
         if rc == 0:
             self.connected_flag = True
-            print("Connected OK returned Code:" , rc)
+            logging.info("Connected OK returned Code:" + rc)
         else:
-            print("Bad connection Returned Code:", rc)
+            logging.info("Bad connection Returned Code:" + rc)
     
             
     def onMessage(self , client ,userdata , msg):
         '''
         callback when message arrives
         '''
-        print("Recieved Message from Gateway: " + str(msg.payload.decode("utf-8")))
-       
+#         print("in OnMsg")
+#         try:
+        print(str(msg.topic))
+        logging.info("HURRAY : : : : : : : : : Received Message from Gateway: " +  str(msg.topic) +str(msg.payload.decode("utf-8")))
+#             print("Message received from topic " + str(msg.topic) + str(msg.payload.decode("utf-8")))
+#             print("in try")
+#         except:
+#             pass
+#             logging.info("Display Message Failed")
+#             print("display message failed")
+#             print(str(msg.payload.decode("utf-8")))
+        
        
             
     def publishMessage(self , topic , msg , qos=2):
@@ -108,11 +125,12 @@ class MqttClientConnector(object):
         @param topic: name of the topic to publish message
         @param msg: The message to be sent   
         '''
-        print("Publishing:",msg)
+        logging.info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        logging.info("Publishing on topic:  " + topic + '  msg:  ' + msg + '\n')
         self.mqttClient.publish(topic, msg, qos)
     
     
-    def subscibetoTopic(self , topic ,connnectionCallback = None, qos=2):
+    def subscibetoTopic(self , topic, connnectionCallback = None, qos=2):
         '''
         function to subscribe to a topic
         @param topic: name of the topic to subscribe to 
@@ -120,8 +138,10 @@ class MqttClientConnector(object):
         '''
         if connnectionCallback != None:
             self.mqttClient.on_subscribe = (connnectionCallback)
-            self.mqttClient.on_message = (connnectionCallback)
+#             self.mqttClient.on_message = (connnectionCallback)
         self.mqttClient.subscribe(topic , qos)
+        logging.info("Topic Subscribed at CD : " +  str(topic))
+#         print("Subscribed")
         
     
         
@@ -129,6 +149,6 @@ class MqttClientConnector(object):
         '''
         function to unsubscribe to a topic
         '''       
-        print("Unsubscribing from topic",topic)
+        logging.info("Unsubscribing from topic" + topic)
         self.mqttClient.unsubscribe(topic)
     

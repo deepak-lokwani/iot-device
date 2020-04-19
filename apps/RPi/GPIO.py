@@ -32,6 +32,9 @@ def output(pin = DEFAULT_PIN, direction = IN):
     curPin = pin
     curDir = direction
     
+def input(pin = DEFAULT_PIN):
+    curPin = pin
+    
 def set_rotation(rotateDeg):
     rotateDeg = rotateDeg
 

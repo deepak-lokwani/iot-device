@@ -7,7 +7,7 @@ Created on 15-Feb-2020
 '''
 this class is responsible for fetching the Humidity data from the SenseHat Sensor directly through the I2C protocol
 '''
-#import smbus
+import smbus
 import threading
 from time import sleep
 import logging
@@ -63,7 +63,7 @@ class I2CSenseHatAdaptor(threading.Thread):
 		if val & (1 << 15):
 			val = val - (1 << 16)
 		return val
-   	'''
+	'''
     method to get my humidity data through the I2C bus
     '''
 	def getHumidityDataI2C(self):
