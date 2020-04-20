@@ -11,6 +11,13 @@ from project.protocols import UbidotsApiConnector
 import logging 
 import threading
 
+'''
+This is a runnable class used to collect my System 
+performance data (CPU and Memory) utilization using 
+the libraries. This data is further processed and 
+sent to the ubidots cloud platform using HTTPS 
+based Ubidots API connector.
+'''
 
 class SystemPerformanceAdaptor(threading.Thread):
     

@@ -12,7 +12,9 @@ from project.protocols import MqttNew
 class MultiActuatorApp(threading.Thread):
     
     '''
-    This class is used to start the thread for subscribing topic of Mqtt broker
+    This class is used to start the thread for subscribing topic of 
+    Mqtt broker for the actuator data.
+    After subscription the actuator data is processed to the actuator
     '''
     
     #Default Constructor
@@ -32,7 +34,7 @@ class MultiActuatorApp(threading.Thread):
             #Subscribing to a topic
             self.mqttClient.subscibetoTopic("ActFromGD")
 
-            sleep(300)
+            sleep(7200)
 
             #Unsubscribe from topic
 #             self.mqttClient.unsubscibefromTopic("ActFromGD")

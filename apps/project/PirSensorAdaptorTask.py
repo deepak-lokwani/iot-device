@@ -4,8 +4,10 @@ Created on 08-Apr-2020
 @author: deepa
 '''
 '''
-This class is used to setup the task of getting the Temperature sensor data values using the SenseHat 
-and send it further to the data processing classes like sending SMTP and Data management classes
+This class is used to setup the task of getting the 
+PIR sensor data values using the emulator 
+and send it further to the data processing classes 
+like publishing to the Gateway and Data management classes
 '''
 
 import threading
@@ -61,4 +63,4 @@ class PirSensorAdaptorTask(threading.Thread):
                 self.curPIR = pirEmulator.getBoolean()
                 self.sensorData.addPIRValue(self.curPIR)
                 self.mqtt08.publish_message(self.sensorData, "PIRFromSensor")
-                sleep(10)
+                sleep(45)

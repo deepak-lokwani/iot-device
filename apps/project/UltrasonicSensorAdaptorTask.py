@@ -6,8 +6,8 @@ Created on 04-Apr-2020
 
 
 '''
-This class is used to setup the task of getting the Temperature sensor data values using the SenseHat 
-and send it further to the data processing classes like sending SMTP and Data management classes
+This class is used to setup the task of getting the Ultrasonic  sensor data values using the SenseHat 
+and send it further to the data processing classes like sending to the gateway device and Data management classes
 '''
 
 import threading
@@ -106,4 +106,4 @@ class UltrasonicSensorAdaptorTask(threading.Thread):
                     
                     elif(self.prevDist != self.curDist): 
                         self.mqtt08.publish_message(self.sensorData, "USFromSensor")
-                sleep(10)
+                sleep(45)

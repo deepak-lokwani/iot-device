@@ -17,6 +17,13 @@ from datetime import datetime
 @param SampleCount: holds the sample count
 '''
 
+'''
+This class is used to store and maneuver the sensor data received 
+and sent from Constrained devices this class contains the  
+information on all the sensor value and its derivatives  
+'''
+
+
 class SensorData(object):
     
     timeStamp = None
@@ -30,13 +37,9 @@ class SensorData(object):
     USLowValueFlag = False
     USRepeatedValueFlag = False
     
-    
-
-    
     def __init__(self):
         
         self.timeStamp = str(datetime.now())
-        
         
     def addValue(self, newVal):
         '''
@@ -46,18 +49,17 @@ class SensorData(object):
         self.timeStamp = str(datetime.now())
         self.curValue = newVal
         self.totValue += newVal
-        self.totValue = round((self.totValue + newVal),1)
+        self.totValue = round((self.totValue + newVal), 1)
         
-        if(self.sampleCount==1):
-            self.minValue=self.curValue
+        if(self.sampleCount == 1):
+            self.minValue = self.curValue
         elif(self.curValue < self.minValue):
             self.minValue = self.curValue
         
         if(self.curValue > self.maxValue):
             self.maxValue = self.curValue
         if(self.totValue != 0   and    self.sampleCount > 0):
-            self.avgValue = round( (self.totValue / self.sampleCount), 1)
-            
+            self.avgValue = round((self.totValue / self.sampleCount), 1)
     
     def addPIRValue(self, newPIRValue):
         self.timeStamp = str(datetime.now())

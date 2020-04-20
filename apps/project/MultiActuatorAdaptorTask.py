@@ -7,6 +7,12 @@ from labs.common.ActuatorData import ActuatorData as ActData, CMD_ON
 from labs.common.DataUtil import DataUtil
 import logging
 
+
+'''
+this class is claled whenever the new actuator data is arrived 
+and needs to processed to the Actuator and update the database 
+'''
+
 class MultiActuatorAdaptorTask(object):
     
     def __init__(self):

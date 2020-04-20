@@ -19,7 +19,10 @@ VARIABLE_LABEL1 = "memory-utilization"
 TOKEN = "BBFF-yegKC0ObS7wjfGO8Bx2IU53hjRv9il"
 DELAY = 1  # Delay in seconds
 
-
+'''
+this class is used to publish the system performancew data 
+to the Ubidots cloud platform using Api client connector
+'''
 def post_var(payload, url=ENDPOINT, device=DEVICE_LABEL, token=TOKEN):
    
     try:

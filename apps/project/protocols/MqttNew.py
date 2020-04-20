@@ -12,7 +12,12 @@ from project import MultiActuatorAdaptorTask
 
 class MqttNew(object):
     '''
-    Public class that uses the eclipse paho library for Python to import the methods of Mqtt and publish and subscribe the data 
+    Public class that uses the eclipse paho library for Python to import the methods 
+    of Mqtt and publish and subscribe the data 
+    This class  establishes, subscribes and disconnects the client connection with the 
+    channel through a MQTT Broker using Java libraries of Paho. When required the messages 
+    in the Message arrived section are directed to the sensordata manager 
+    
     '''
     '''
         @param port: the port to which broker is connected
